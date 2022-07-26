@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -12,14 +13,13 @@ public class App {
         App shop = new App();
         ArrayList<String[]> purchases = new ArrayList<>();
 
+        Products product1 = new Products(1234567890, "Valve", 20);
+        Products product2 = new Products(1687654321, "CD Project", 10);
+        Products product3 = new Products(1293237423, "Ubisoft", 10.5);
 
-        Products product1 = new Products("1234567890", "Valve", 20);
-        Products product2 = new Products("0987654321", "CD Project", 10);
-        Products product3 = new Products("1293237423", "Ubisoft", 10.5);
-
-        Users user1 = new Users("1568535433", "Ґейб", "Ньюел", 40.5);
-        Users user2 = new Users("1856463522", "Марцін", "Івінський", 10);
-        Users user3 = new Users("1293237423", "Крiстiан", "Гiймо", 10.5);
+        Users user1 = new Users(1568535433, "Ґейб", "Ньюел", 40.5);
+        Users user2 = new Users(1856463522, "Марцін", "Івінський", 10);
+        Users user3 = new Users(1293237423, "Крiстiан", "Гiймо", 10.5);
 
         ArrayList<Users> users = new ArrayList<>();
         users.add(user1);
@@ -38,50 +38,47 @@ public class App {
             String command = scanner.nextLine();
 
             switch (command) {
-                case "/users":
+                case "/users" -> {
                     OutputUsers outputUsers = new OutputUsers();
                     outputUsers.outputUsersTitle();
                     for (Users user : users) {
                         outputUsers.outputUsers(user);
                     }
-                    break;
-                case "/products":
+                }
+                case "/products" -> {
                     OutputProducts outputProducts = new OutputProducts();
                     outputProducts.outputProductsTitle();
                     for (Products product : products) {
                         outputProducts.outputProducts(product);
                     }
-                    break;
-                case "/buy":
+                }
+                case "/buy" -> {
                     BuyOutput buyOutput = new BuyOutput();
                     buyOutput.outputBuy();
+                    int idUserInput = buyOutput.outputBuyUserId(scanner);
+                    int idProductInput = buyOutput.outputBuyProductId(scanner);
 
                     for (Users user : users) {
-                        if (buyOutput.outputBuyUserId(scanner).equals(user.id)) {
-                            for (Products product : products) {
-                                try {
-                                    if (buyOutput.outputBuyProductId(scanner).equals(product.id)) {
-                                        if (user.money >= product.price) {
-                                            System.out.println("You have successfully purchased this item!");
-                                            user.money = user.money - product.price;
-                                            String[] newPur = new String[]{
-                                                    user.toString(),
-                                                    product.toString()
-                                            };
-                                            purchases.add(newPur);
-                                        } else {
-                                            System.out.println("No money :(");
-                                        }
-                                        //TO DO
-                                    }
-                                } catch (Exception e) {
-                                    System.out.println("Product with this id not found");
-                                }
-                            }
-                        }
+                           if(user.id == idUserInput){
+                               for (Products product : products) {
+                                   if(product.id == idProductInput) {
+                                       if(user.money >= product.price) {
+                                           user.money = user.money - product.price;
+                                           System.out.println("Excellent! " + user.name + " " +user.surName +" has purchased " + product.name + "!");
+                                           String[] newPur = new String[]{
+                                                   user.toString(),
+                                                   product.toString()
+                                           };
+                                           purchases.add(newPur);
+                                       } else {
+                                           System.out.println("Not enough money :(");
+                                       }
+                                   }
+                                   }
+                               }
+                       }
                     }
-                    break;
-                case "/purchase":
+                case "/purchase" -> {
                     PurchaseOutput purchaseOutput = new PurchaseOutput();
                     purchaseOutput.outputPurchaseTitle();
                     try {
@@ -91,22 +88,14 @@ public class App {
                     } catch (Exception e) {
                         System.out.println("Nobody bought the products :(");
                     }
-                    ;
-                    break;
-                case "/exit":
+                }
+                case "/exit" -> {
                     System.out.println("Exit program");
                     exit = true;
-                    break;
-
+                }
             }
         } while (!exit);
 
-    }
-
-    public String[] purchaseCreator(String[] idUser, String[] idProduct) {
-        return new String[]{
-                String.valueOf(idUser), String.valueOf(idProduct)
-        };
     }
 
     public void Menu() {

@@ -7,14 +7,14 @@ public class BuyOutput {
         System.out.println("--------------------------------------------");
         System.out.println("Please enter your User ID and Product ID:");
     }
-    public String outputBuyUserId(Scanner scanner){
+    public int outputBuyUserId(Scanner scanner){
         System.out.print("User ID: ");
-        String buyUserId = scanner.nextLine();
+        int buyUserId = scanner.nextInt();
         return buyUserId;
     }
-    public String outputBuyProductId(Scanner scanner){
+    public int outputBuyProductId(Scanner scanner){
         System.out.print("Product ID: ");
-        String buyProductId = scanner.nextLine();
+        int buyProductId = scanner.nextInt();
         return buyProductId;
     }
 }
