@@ -1,7 +1,6 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class App {
     public static final String ANSI_RED = "\u001B[31m";
@@ -11,7 +10,7 @@ public class App {
     public static void main(String[] args) {
         boolean exit = false;
         App shop = new App();
-        ArrayList<String[]> purchases = new ArrayList<>();
+        ArrayList<Purchases> purchases = new ArrayList<>();
 
         Products product1 = new Products(1234567890, "Valve", 20);
         Products product2 = new Products(1687654321, "CD Project", 10);
@@ -65,10 +64,7 @@ public class App {
                                        if(user.money >= product.price) {
                                            user.money = user.money - product.price;
                                            System.out.println("Excellent! " + user.name + " " +user.surName +" has purchased " + product.name + "!");
-                                           String[] newPur = new String[]{
-                                                   user.toString(),
-                                                   product.toString()
-                                           };
+                                           Purchases newPur = new Purchases(user, product);
                                            purchases.add(newPur);
                                        } else {
                                            System.out.println("Not enough money :(");
@@ -81,13 +77,27 @@ public class App {
                 case "/purchase" -> {
                     PurchaseOutput purchaseOutput = new PurchaseOutput();
                     purchaseOutput.outputPurchaseTitle();
-                    try {
-                        for (String[] purchase : purchases) {
-                            System.out.println(Arrays.toString(purchase));
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Nobody bought the products :(");
-                    }
+                    int numberDisplay = scanner.nextInt();
+                     if (numberDisplay == 1){
+                         System.out.println("Enter User ID:");
+                         int userID = scanner.nextInt();
+                         for (Purchases purchase : purchases) {
+                           if(userID == purchase.getUserId()){
+                               System.out.println();
+                           }
+                         }
+                     } else if (numberDisplay == 2){
+
+                     }
+
+//                     try {
+//                        for (String[] purchase : purchases) {
+//                            System.out.println(Arrays.toString(purchase));
+//                        }
+//                    } catch (Exception e) {
+//                        System.out.println("Nobody bought the products :(");
+//                    }
+//                }
                 }
                 case "/exit" -> {
                     System.out.println("Exit program");
