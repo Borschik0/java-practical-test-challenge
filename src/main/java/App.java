@@ -79,11 +79,11 @@ public class App {
                     purchaseOutput.outputPurchaseTitle();
                     int numberDisplay = scanner.nextInt();
                      if (numberDisplay == 1){
-                         System.out.println("Enter User ID:");
+                         System.out.print("Enter User ID:");
                          int userID = scanner.nextInt();
                          for (Purchases purchase : purchases) {
                            if(userID == purchase.getUserId()){
-                               System.out.println();
+                               System.out.println(purchase.getProduct());
                            }
                          }
                      } else if (numberDisplay == 2){

@@ -14,6 +14,9 @@ public class Purchases {
     public int getProductId(){
         return product.id;
     }
+    public Products getProduct(){
+        return product;
+    }
 
 
 }
