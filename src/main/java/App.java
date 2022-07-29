@@ -79,25 +79,24 @@ public class App {
                     purchaseOutput.outputPurchaseTitle();
                     int numberDisplay = scanner.nextInt();
                      if (numberDisplay == 1){
-                         System.out.print("Enter User ID:");
+                         System.out.print("Enter User ID: ");
                          int userID = scanner.nextInt();
+                         System.out.println("User shopping: ");
                          for (Purchases purchase : purchases) {
                            if(userID == purchase.getUserId()){
                                System.out.println(purchase.getProduct());
                            }
                          }
                      } else if (numberDisplay == 2){
-
+                         System.out.print("Enter Product ID: ");
+                         int productID = scanner.nextInt();
+                         System.out.println("Purchased items:");
+                         for (Purchases purchase : purchases) {
+                             if(productID == purchase.getProductId()){
+                                 System.out.println(purchase.getUser());
+                             }
+                         }
                      }
-
-//                     try {
-//                        for (String[] purchase : purchases) {
-//                            System.out.println(Arrays.toString(purchase));
-//                        }
-//                    } catch (Exception e) {
-//                        System.out.println("Nobody bought the products :(");
-//                    }
-//                }
                 }
                 case "/exit" -> {
                     System.out.println("Exit program");

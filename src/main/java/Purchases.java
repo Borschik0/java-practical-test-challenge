@@ -18,5 +18,8 @@ public class Purchases {
         return product;
     }
 
+    public Users getUser(){
+        return user;
+    }
 
 }
